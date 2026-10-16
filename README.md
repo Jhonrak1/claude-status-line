@@ -75,6 +75,13 @@ Run `npx github:Jhonrak1/claude-status-line doctor`.
 
 Edit `~/.claude/claude-status-line/statusline.js` (colors are 256-color codes in the `section(fg, bg, text)` calls). Re-running `install` overwrites edits.
 
+## Future plans
+
+- **Color themes:** try different color schemes, and let the installer offer a choice of predefined palettes (e.g. `install --theme <name>`).
+- **More customization:** configure sections, order and colors without editing the script, and keep those choices when re-running `install`.
+- **Better error handling:** clearer messages and safer fallbacks for bad input, unreadable settings and missing fields in the JSON from Claude Code.
+- **Test layer:** a simple automated test suite covering the status line output and the installer.
+
 ## Manual install
 
 ```sh
