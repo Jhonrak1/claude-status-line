@@ -39,6 +39,7 @@ Removes the status line and restores your previous `statusLine`, if any.
 
 | Option | |
 | --- | --- |
+| `--theme <name>` | Color theme: `default`, `ocean`, `forest`, `mono`, `light` (re-run `install --theme <name>` to switch) |
 | `--dry-run` | Show what would change, write nothing |
 | `--force` | Replace an existing `statusLine` (backed up first) |
 | `--print` | Install only the script and print the snippet to paste; settings are not touched |
@@ -77,7 +78,10 @@ Edit `~/.claude/claude-status-line/statusline.js` (colors are 256-color codes in
 
 ## Future plans
 
+<<<<<<< HEAD
 - **Color themes:** try different color schemes, and let the installer offer a choice of predefined palettes (e.g. `install --theme <name>`).
+=======
+>>>>>>> develop
 - **More customization:** configure sections, order and colors without editing the script, and keep those choices when re-running `install`.
 - **Better error handling:** clearer messages and safer fallbacks for bad input, unreadable settings and missing fields in the JSON from Claude Code.
 - **Test layer:** a simple automated test suite covering the status line output and the installer.
