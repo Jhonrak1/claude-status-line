@@ -18,7 +18,6 @@ _Last updated: 2026-10-16_
 ## Git
 - Remote: `git@github.com:Jhonrak1/claude-status-line.git`
 - Branches: `main` (includes the v1.0.0 release commit) and `develop` (same files, but history branches off before the release commit and never merged it).
-- History was rewritten on 2026-10-16 to remove an unwanted `Co-Authored-By` trailer from the last commit on both branches (force-pushed).
 
 ## Planned
 - Color themes: `install --theme <name>` with predefined palettes.
