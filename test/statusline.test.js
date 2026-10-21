@@ -1,3 +1,5 @@
+// TODO: the next tests should target the installer (bin/cli.js: install, uninstall, doctor),
+// run against a temporary HOME so the real ~/.claude settings are never touched.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
