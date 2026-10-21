@@ -5,8 +5,11 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 
 const args = process.argv.slice(2);
-const cmd = args.find((a) => !a.startsWith('--'));
-const flags = new Set(args.filter((a) => a.startsWith('--')));
+const themeIdx = args.indexOf('--theme');
+const theme = themeIdx > -1 ? args[themeIdx + 1] : undefined;
+const rest = args.filter((_, i) => themeIdx === -1 || (i !== themeIdx && i !== themeIdx + 1));
+const cmd = rest.find((a) => !a.startsWith('--'));
+const flags = new Set(rest.filter((a) => a.startsWith('--')));
 const dryRun = flags.has('--dry-run');
 const force = flags.has('--force');
 const project = flags.has('--project');
@@ -20,6 +23,12 @@ const scriptSrc = path.join(__dirname, '..', 'src', 'statusline.js');
 const settingsPath = project
   ? path.join(process.cwd(), '.claude', 'settings.json')
   : path.join(configDir, 'settings.json');
+
+const { THEMES } = require('../src/statusline.js');
+if (themeIdx > -1 && !THEMES[theme]) {
+  console.error(`Unknown theme "${theme ?? ''}". Available: ${Object.keys(THEMES).join(', ')}`);
+  process.exit(1);
+}
 
 const log = (msg) => console.log(dryRun ? `[dry-run] ${msg}` : msg);
 const fail = (msg) => {
@@ -76,7 +85,7 @@ const otherOverrides = () =>
 
 // Copy the script and show the snippet to paste; settings.json is never read or written.
 const installPrint = () => {
-  const command = `${nodeCommand()} "${scriptDest}"`;
+  const command = `${nodeCommand()} "${scriptDest}"${theme ? ` --theme ${theme}` : ''}`;
   log(`Copying script -> ${scriptDest}`);
   if (!dryRun) {
     fs.mkdirSync(installDir, { recursive: true });
@@ -114,7 +123,7 @@ const install = () => {
     state[settingsPath] = { previous: null };
   } // else: already ours, keep the recorded previous value
 
-  const command = `${nodeCommand()} "${scriptDest}"`;
+  const command = `${nodeCommand()} "${scriptDest}"${theme ? ` --theme ${theme}` : ''}`;
   log(`Copying script -> ${scriptDest}`);
   log(`Setting statusLine in ${settingsPath} to: ${command}`);
 
@@ -175,12 +184,13 @@ const commands = { install, uninstall, doctor };
 if (commands[cmd]) {
   commands[cmd]();
 } else {
-  console.log(`Usage: claude-status-line <install|uninstall|doctor> [--dry-run] [--force] [--project]
+  console.log(`Usage: claude-status-line <install|uninstall|doctor> [--theme <name>] [--dry-run] [--force] [--project]
 
   install     Install the script and set statusLine in settings.json
   uninstall   Remove it and restore the previous statusLine, if any
   doctor      Show the current state and anything that might override it
 
+  --theme     Color theme: ${Object.keys(THEMES).join(', ')} (default: default)
   --dry-run   Show what would change without writing anything
   --force     Replace an existing statusLine (it is backed up first)
   --print     Install only the script and print the settings snippet; settings.json is not touched
