@@ -19,7 +19,6 @@ _Last updated: 2026-10-21_
 ## Git
 - Remote: `git@github.com:Jhonrak1/claude-status-line.git`
 - Branches: `main` (includes the v1.0.0 release commit), `develop` (now has the v1.0.0 release commit and the tests merged in) and `feature/statusline-tests` (tests, branched from `main`).
-- History was rewritten on 2026-10-16 to remove an unwanted `Co-Authored-By` trailer from the last commit on both branches (force-pushed).
 
 ## Planned
 - Tests for `bin/cli.js` (needs a temporary `HOME`).
