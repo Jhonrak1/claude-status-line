@@ -15,9 +15,9 @@ _Last updated: 2026-10-24_
 ## Status
 - v1.0.0 released; install, uninstall and doctor are implemented and documented.
 - Color themes (`install --theme <name>`) are implemented and in the README, on `develop` and `main`, and covered by tests (palette applied, unknown theme falls back; installer rejects unknown names and writes the flag).
-- Status line script has a simple test layer (model, context size, cost, context bar, date, invalid-JSON fallback, `NO_COLOR`); `bin/cli.js` is covered on `feature/installation-tests` (not yet merged). Known gap: the "`node` not on PATH" branch.
+- Test layer (42 tests, `npm test` runs `node --test`, which works on Node 18 through 22): the status line script (model, context size, cost, context bar, date, invalid-JSON fallback, `NO_COLOR`, themes); `bin/cli.js` is covered by the installer tests. Known gap: the "`node` not on PATH" branch.
 - No CI, no dependencies.
 
 ## Git
 - Remote: `git@github.com:Jhonrak1/claude-status-line.git`
-- Branches: `main` (includes the v1.0.0 release commit), `develop` (has the release, the tests and the color themes) and `feature/statusline-tests` (tests, branched from `main` before the themes).
+- Branches: `main` (includes the v1.0.0 release commit), `develop` (release, color themes, status line and installer tests) and the merged feature branches `feature/statusline-tests` and `feature/installation-tests`.
