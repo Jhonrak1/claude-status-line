@@ -1,5 +1,3 @@
-// TODO: the next tests should target the installer (bin/cli.js: install, uninstall, doctor),
-// run against a temporary HOME so the real ~/.claude settings are never touched.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { spawnSync } = require('node:child_process');
@@ -74,4 +72,22 @@ test('emits ANSI colors by default and none with NO_COLOR', () => {
   const data = { model: { display_name: 'Opus' } };
   assert.match(run(data).stdout, /\x1b\[/);
   assert.doesNotMatch(run(data, plain.env).stdout, /\x1b\[/);
+});
+
+const { THEMES } = require('../src/statusline.js');
+const themed = (args) =>
+  spawnSync(process.execPath, [SCRIPT, ...args], {
+    input: JSON.stringify({ model: { display_name: 'Opus' } }),
+    encoding: 'utf8',
+    env: { ...process.env, NO_COLOR: undefined },
+  }).stdout;
+
+for (const [name, t] of Object.entries(THEMES)) {
+  test(`--theme ${name} applies its palette`, () => {
+    assert.ok(themed(['--theme', name]).includes(`\x1b[38;5;${t.fg};48;5;${t.model}m`));
+  });
+}
+
+test('unknown --theme falls back to default', () => {
+  assert.equal(themed(['--theme', 'neon']), themed([]));
 });
