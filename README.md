@@ -62,7 +62,7 @@ Claude Code ──(JSON on stdin)──▶ node statusline.js ──(colored lin
 
 ## Safety
 
-The script makes no network requests, reads and writes no files, and starts no processes. There are no dependencies or install scripts, and both source files are short enough to read in minutes. `npx github:...` runs the default branch; pin a release with `#v1.0.0`.
+The status line script makes no network requests, reads and writes no files, and starts no processes (the installer does touch files, as described above). There are no dependencies or install scripts, and both source files are short enough to read in minutes. `npx github:...` runs the default branch; pin a release with `#v1.0.0`.
 
 ## Troubleshooting
 
@@ -74,13 +74,11 @@ Run `npx github:Jhonrak1/claude-status-line doctor`.
 
 ## Customize
 
-Edit `~/.claude/claude-status-line/statusline.js` (colors are 256-color codes in the `section(fg, bg, text)` calls). Re-running `install` overwrites edits.
+Edit `~/.claude/claude-status-line/statusline.js` (colors are 256-color codes in the `THEMES` table). Re-running `install` overwrites edits.
 
 ## Future plans
 
 - **More customization:** configure sections, order and colors without editing the script, and keep those choices when re-running `install`.
-- **Better error handling:** clearer messages and safer fallbacks for bad input, unreadable settings and missing fields in the JSON from Claude Code.
-- **Test layer:** a simple automated test suite covering the status line output and the installer.
 
 ## Manual install
 
